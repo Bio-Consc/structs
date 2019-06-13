@@ -566,7 +566,8 @@ func (s *Struct) nested(val reflect.Value) interface{} {
 		// i.e []foo or []*foo
 		if val.Type().Elem().Kind() != reflect.Struct &&
 			!(val.Type().Elem().Kind() == reflect.Ptr &&
-				val.Type().Elem().Elem().Kind() == reflect.Struct) {
+				val.Type().Elem().Elem().Kind() == reflect.Struct) &&
+			val.Type().Elem().Kind() != reflect.Interface {
 			finalVal = val.Interface()
 			break
 		}
